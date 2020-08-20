@@ -46,17 +46,34 @@ const weekdays = [
   "Sábado",
 ]
 
-//Funcionalidades
+//Funcionalidades do servidor
+function getSubject(subjectNumber) {
+  const position = +subjectNumber -1;
+  return subjects[position];
+}
+
+//Funcionalidades da página
 function pageLanding (req, res) {
-  return res.render("index.html")
+  return res.render("index.html");
 }
 
 function pageStudy (req, res) {
-  const filters = req.query
-  return res.render("study.html", { proffys, filters, subjects, weekdays })
+  const filters = req.query;
+  return res.render("study.html", { proffys, filters, subjects, weekdays });
 }
 
 function pageGiveClasses (req, res) {
+  const data = req.query;
+  //Verificar se está vazio
+  const isNotEmpty = Object.keys(data).length > 0;
+  //Adicionar dados a lista de Proffys
+  if (isNotEmpty) {
+    data.subject = getSubject(data.subject);
+
+    proffys.push(data);
+
+    return res.redirect("/study");
+  }
   return res.render("give-classes.html", { subjects, weekdays })
 }
 
