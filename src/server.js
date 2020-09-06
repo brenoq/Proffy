@@ -2,7 +2,7 @@
 const express = require("express");
 const server = express();
 
-const { pageLanding, pageStudy, pageGiveClasses, saveClasses } =  require("./pages.js");
+const { pageLanding, pageStudy, pageGiveClasses, saveClasses, pageSuccess } =  require("./pages.js");
 
 //Configurar Nunjucks (Template engine)
 const nunjucks = require("nunjucks");
@@ -22,5 +22,6 @@ server
 .get("/study", pageStudy)
 .get("/give-classes", pageGiveClasses)
 .post("/save-classes", saveClasses)
+.get("/success", pageSuccess)
 //Define porta 5500 e inicia o servidor
 .listen(5500)
